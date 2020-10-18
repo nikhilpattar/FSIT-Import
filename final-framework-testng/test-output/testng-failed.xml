@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
-  <test name="Default test(failed)">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Sample test Suite]">
+  <test name="UNF056(failed)">
     <classes>
-      <class name="com.training.regression.tests.LoginExcelTest">
+      <class name="com.training.sanity.tests.UNF056Test">
         <methods>
+          <include name="addDiscountToProduct"/>
           <include name="tearDown"/>
-          <include name="loginDBTest" invocation-numbers="3 4"/>
-          <include name="setUpBeforeClass"/>
           <include name="setUp"/>
+          <include name="setUpBeforeClass"/>
         </methods>
-      </class> <!-- com.training.regression.tests.LoginExcelTest -->
+      </class> <!-- com.training.sanity.tests.UNF056Test -->
     </classes>
-  </test> <!-- Default test(failed) -->
-</suite> <!-- Failed suite [Default suite] -->
+  </test> <!-- UNF056(failed) -->
+</suite> <!-- Failed suite [Sample test Suite] -->

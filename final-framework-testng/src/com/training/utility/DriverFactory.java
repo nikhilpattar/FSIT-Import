@@ -22,7 +22,6 @@ public class DriverFactory {
 		if(driverName.equals(DriverNames.CHROME)){
 			System.setProperty(Driver.CHROME, Driver.CHROME_PATH);
 			driver = new ChromeDriver();
-		
 			
 		}else if(driverName.equals(DriverNames.FIREFOX)){
 			System.setProperty(Driver.FIREFOX, Driver.FIREFOX_PATH);

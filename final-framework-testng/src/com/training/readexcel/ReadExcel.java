@@ -25,9 +25,9 @@ public class ReadExcel {
 				System.out.println("Total Number Of Rows : " +totalNoOfRows);
 				System.out.println("Number of Cols " + totalNoOfCols);
 				
-				arrayExcelData = new String[totalNoOfRows-1][totalNoOfCols];
+				arrayExcelData = new String[totalNoOfRows-2][totalNoOfCols];
 				
-				for (int i= 1 ; i < totalNoOfRows; i++) 
+				for (int i= 1 ; i < totalNoOfRows - 1; i++) 
 				{
 					for (int j=0; j < totalNoOfCols; j++) 
 					{
@@ -43,7 +43,7 @@ public class ReadExcel {
 
 	// Test method, change the path of the .xls file 
 	public static void main(String[] args) {
-		String[][] result = new ReadExcel().getExcelData("C:/Users/Naveen/Desktop/Testing.xls", "Sheet1"); 
+		String[][] result = new ReadExcel().getExcelData("F:\\Reloaded\\Jigsaw\\Project_Resources\\Data_Source\\LoginCrredentials.xls", "Credentials"); 
 		
 		for(String [] temp : result){
 			for(String temp1: temp){

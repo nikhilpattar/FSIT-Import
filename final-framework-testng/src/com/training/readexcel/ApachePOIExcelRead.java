@@ -22,7 +22,7 @@ public class ApachePOIExcelRead {
 	public  String [][] getExcelContent(String fileName) {
 		int rowCount =0; 
 		String [][] list1 = null; 
-		
+
 		try {
 			System.out.println("File Name Got " + fileName);
 			FileInputStream file = new FileInputStream(new File(fileName));
@@ -32,18 +32,18 @@ public class ApachePOIExcelRead {
 
 			// Get first/desired sheet from the workbook
 			XSSFSheet sheet = workbook.getSheetAt(0);
-			
-			int rowTotal = sheet.getLastRowNum();
 
-			if ((rowTotal > 0) || (sheet.getPhysicalNumberOfRows() > 0)) {
-			    rowTotal++;
-			}
-			
-			
+			int rowTotal = sheet.getLastRowNum();
+			System.out.println(rowTotal);
+			/*if ((rowTotal > 0) || (sheet.getPhysicalNumberOfRows() > 0)) {
+				rowTotal++;
+			}*/
+			System.out.println(rowTotal);
+
 			// Iterate through each rows one by one
 			Iterator<Row> rowIterator = sheet.iterator();
-			 list1 = new String[rowTotal][2];
-			 
+			list1 = new String[rowTotal][2];
+
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
 				// For each row, iterate through all the columns
@@ -52,16 +52,16 @@ public class ApachePOIExcelRead {
 				int cellCount = 0; 
 				int noOfColumns = row.getLastCellNum(); 
 				String[] tempList1 = new String[noOfColumns];
-				
-				
-				
+
+
+
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
 					// Check the cell type and format accordingly
 					switch (cell.getCellType()) {
 
 					case Cell.CELL_TYPE_NUMERIC:
-						
+
 						if(((Double) cell.getNumericCellValue()).toString()!=null){
 							tempList1[cellCount] = ((Double) cell.getNumericCellValue()).toString(); 
 						} 
@@ -78,8 +78,8 @@ public class ApachePOIExcelRead {
 					list1[rowCount++] = tempList1;
 				}
 			}
-		
-			
+
+
 			file.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,8 +89,8 @@ public class ApachePOIExcelRead {
 	}
 
 	public static void main(String[] args) {
-		String fileName = "C:/Users/Naveen/Desktop/Testing.xlsx";
-		
+		String fileName = "F:\\Reloaded\\Jigsaw\\Project_Resources\\Data_Source\\LoginCrredentials.xlsx";
+
 		for(String [] temp : new ApachePOIExcelRead().getExcelContent(fileName)){
 			for(String  tt : temp){
 				System.out.println(tt);
