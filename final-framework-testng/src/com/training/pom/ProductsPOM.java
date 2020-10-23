@@ -16,6 +16,9 @@ public class ProductsPOM
 		PageFactory.initElements(driver, this);
 	}
 	
+	@FindBy(xpath="//*[@class='alert alert-success']")
+	private WebElement productAlertMessage;
+	
 	@FindBy(xpath="/html/body/div/nav/ul/li[2]")
 	public WebElement catalog;
 	
@@ -89,6 +92,10 @@ public class ProductsPOM
 	               
 	@FindBy(xpath="//*[@id=\"form-product\"]/div/table/tbody/tr[1]/td[8]/a")
 	private WebElement productEditIcon;
+	
+	public String getProductAlertMessage() {
+		return this.productAlertMessage.getText();
+	}
 	
 	public void sendProductModelDetails(String modelName) {
 		this.productModel.sendKeys(modelName);

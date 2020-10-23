@@ -14,6 +14,9 @@ public class ManufacturerPOM
 		PageFactory.initElements(driver, this);
 	}
 	
+	@FindBy(xpath="//*[@class='alert alert-success']")
+	private WebElement manufacturerAlertMessage;
+	
 	@FindBy(id="catalog")
 	private WebElement catalog;
 	
@@ -31,6 +34,10 @@ public class ManufacturerPOM
 	
 	public WebElement catalog() {
 		return this.catalog;
+	}
+	
+	public String getManufacturerAlertMessage() {
+		return this.manufacturerAlertMessage.getText();
 	}
 	
 	public WebElement manufactureLink() {

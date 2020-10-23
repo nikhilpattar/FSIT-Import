@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
@@ -16,6 +17,7 @@ import com.training.dataproviders.LoginDataProviders;
 import com.training.generics.ScreenShot;
 import com.training.pom.LoginPOM;
 import com.training.pom.ProductsPOM;
+import com.training.utility.Constants;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
@@ -55,10 +57,13 @@ public class UNF056Test
 		loginPOM.sendUserName(userName);
 		loginPOM.sendPassword(passWord);
 		loginPOM.clickLoginBtn(); 
+		
+		Assert.assertEquals(driver.getTitle(), Constants.DASHBOARD_TITLE);
+		
 		screenShot.captureScreenShot("UNF_056_Loggedin");
 	}
 
-	@Test(priority=1)
+	@Test(priority=1,dependsOnMethods="LoginAsAdmin", alwaysRun=false)
 	public void editDataOfProduct() throws InterruptedException {
 
 		act.moveToElement(productPOM.catalog).moveToElement(productPOM.prodcutsLink).click().build().perform();
@@ -73,7 +78,7 @@ public class UNF056Test
 		productPOM.sendQuantity(30);
 	}
 
-	@Test(priority=2)
+	@Test(priority=2, dependsOnMethods="editDataOfProduct", alwaysRun=false)
 	public void addDiscountToProduct() throws InterruptedException {
 
 		productPOM.clickOnDiscountTab();
@@ -87,8 +92,10 @@ public class UNF056Test
 		Thread.sleep(2000);
 		productPOM.sendDiscountEndDate(LocalDate.now(), 1);
 		screenShot.captureScreenShot("UNF_056_DiscountAdded");
-
 		productPOM.saveProduct();
+		
+		Assert.assertEquals(productPOM.getProductAlertMessage(), Constants.PRODUCT_ALERT_MESSAGE);
+		
 		screenShot.captureScreenShot("UNF_056_ProductEditedWithDiscount");
 	}
 	

@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
@@ -16,6 +17,7 @@ import com.training.dataproviders.LoginDataProviders;
 import com.training.generics.ScreenShot;
 import com.training.pom.LoginPOM;
 import com.training.pom.ProductsPOM;
+import com.training.utility.Constants;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
@@ -54,10 +56,13 @@ public class UNF057Test
 		loginPOM.sendUserName(userName);
 		loginPOM.sendPassword(passWord);
 		loginPOM.clickLoginBtn(); 
+		
+		Assert.assertEquals(driver.getTitle(), Constants.DASHBOARD_TITLE);
+		
 		screenShot.captureScreenShot("UNF_057_Loggedin");
 	}
 
-	@Test(priority=1)
+	@Test(priority=1,dependsOnMethods="LoginAsAdmin", alwaysRun=false)
 	public void editDataAndLinksOfProduct() {
 
 		act.moveToElement(productPOM.catalog).moveToElement(productPOM.prodcutsLink).click().build().perform();
@@ -75,7 +80,7 @@ public class UNF057Test
 		productPOM.linkCategory("Sports Uniform");
 	}
 
-	@Test(priority=2)
+	@Test(priority=2, dependsOnMethods="editDataAndLinksOfProduct", alwaysRun=false)
 	public void addDiscountToProduct() throws InterruptedException {
 		productPOM.clickOnDiscountTab();
 		productPOM.clickAddDiscount();
@@ -84,8 +89,10 @@ public class UNF057Test
 		productPOM.sendDiscountStartDate(LocalDate.now());
 		productPOM.sendDiscountEndDate(LocalDate.now(), 1);
 		screenShot.captureScreenShot("UNF_057_DiscountAdded");
-
 		productPOM.saveProduct();
+		
+		Assert.assertEquals(productPOM.getProductAlertMessage(), Constants.PRODUCT_ALERT_MESSAGE);
+		
 		screenShot.captureScreenShot("UNF_055_AddedProduct");
 	}
 
